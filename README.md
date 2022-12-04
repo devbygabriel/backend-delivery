@@ -18,7 +18,9 @@ JWT_KEY=dihfiUHFoiudhfosfF1e5sf1s1f5f1EF15
 - Esse projeto está utilizando docker em produção, para realizar o deploy com o docker faça os seguintes passos
 
 docker build -t backend-cupdelivery .
+
 docker tag backend-cupdelivery devbygabriel/backend-cupdelivery:prod
+
 docker push devbygabriel/backend-cupdelivery:prod
 
 O caminho devbygabriel/backend-cupdelivery:prod deve ser alterado para o caminho do seu docker hub
