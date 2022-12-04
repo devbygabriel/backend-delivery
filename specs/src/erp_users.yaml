@@ -1,0 +1,267 @@
+components:
+  schemas:
+    ErpUsers:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        telephone:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    ErpUsersCreate:
+      type: object
+      properties:
+        name:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+        telephone:
+          type: string
+    ErpUsersUpdate:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        telephone:
+          type: string
+    ErpUsersPasswordUpdate:
+        type: object
+        properties:
+          id:
+            type: integer
+          password:
+            type: string
+          newPassword:
+            type: string
+    ErpUsersLogin:
+        type: object
+        properties:
+          email:
+            type: string
+          password:
+            type: string
+  GetAllErpUsersCreateUpdateErpUsers:
+    get:
+      tags:
+        - 'Erp User'
+      summary: Get all Erp User
+      security: 
+        - bearerAuth: []
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: array 
+                items: 
+                  $ref: '#/components/schemas/ErpUsers'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+    post:
+      tags:
+        - 'Erp User'
+      summary: Create new Erp User
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErpUsersCreate'
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: array 
+                items: 
+                  $ref: '#/components/schemas/ErpUsers'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+    put:
+      tags:
+        - 'Erp User'
+      summary: Update Erp User
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErpUsersUpdate'
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: array 
+                items: 
+                  $ref: '#/components/schemas/ErpUsers'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+  GetAllErpUsersByNameOrEmail:
+    get:
+      tags:
+        - 'Erp User'
+      summary: Get all Erp User by name or email
+      security: 
+        - bearerAuth: []
+      parameters: 
+        - in: path 
+          name: filter
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: array 
+                items: 
+                  $ref: '#/components/schemas/ErpUsers'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+  UpdateErpUsersPassword:
+    put:
+      tags:
+        - 'Erp User'
+      summary: Update Erp User password
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErpUsersPasswordUpdate'
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: object 
+                properties: 
+                  message: 
+                    type: string 
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+  ErpUsersLogin:
+    post:
+      tags:
+        - 'Erp User'
+      summary: Erps Users login
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErpUsersLogin'
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: object 
+                properties: 
+                  message: 
+                    type: string 
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+  GetOneOrDeleteErpUsersById:
+    get:
+      tags:
+        - 'Erp User'
+      security: 
+        - bearerAuth: []
+      summary: Get Erp User by id
+      parameters: 
+        - in: path 
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema:  
+                $ref: '#/components/schemas/ErpUsers'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+    delete:
+      tags:
+        - 'Erp User'
+      summary: Delete Erp User by id
+      security: 
+        - bearerAuth: []
+      parameters: 
+        - in: path 
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: object 
+                properties: 
+                  message: 
+                    type: string 
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'

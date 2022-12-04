@@ -1,0 +1,208 @@
+components:
+  schemas:
+    Sales:
+      type: object
+      properties:
+        id:
+          type: integer
+        customer_id:
+          type: integer
+        total:
+          type: number
+        qr_code_image:
+          type: string
+        copia_e_cola:
+          type: string
+        due:
+          type: string
+        status:
+          type: string
+    SalesCreate:
+      type: object
+      properties:
+        customer_id:
+          type: integer
+        total:
+          type: number
+    SalesUpdate:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: string
+    Products:
+      type: object
+      properties:
+        id:
+          type: integer
+        quantity:
+          type: integer
+        item:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        unit:
+          type: string
+        picture:
+          type: string
+  GetAllOrCreateSales:
+    get:
+      tags:
+        - 'Sales'
+      summary: Get all sales
+      security: 
+        - bearerAuth: []
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: array 
+                items: 
+                  $ref: '#/components/schemas/Sales'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+    post:
+      tags:
+        - 'Sales'
+      summary: Create new sales
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SalesCreate'
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: array 
+                items: 
+                  $ref: '#/components/schemas/Sales'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+    put:
+      tags:
+        - 'Sales'
+      summary: Update sales
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SalesCreate'
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: array 
+                items: 
+                  $ref: '#/components/schemas/Sales'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+  DeleteSalesById:
+    delete:
+      tags:
+        - 'Sales'
+      summary: Delete sales by id
+      security: 
+        - bearerAuth: []
+      parameters: 
+        - in: path 
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: object 
+                properties: 
+                  message: 
+                    type: string 
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+  GetSalesByCustomerId:
+    get:
+      tags:
+        - 'Sales'
+      security: 
+        - bearerAuth: []
+      summary: Get sales by customer id
+      parameters: 
+        - in: path 
+          name: customer_id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema:  
+                $ref: '#/components/schemas/Sales'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+  GetSalesProductsBySalesId:
+    get:
+      tags:
+        - 'Sales'
+      security: 
+        - bearerAuth: []
+      summary: Get products sales by sales id
+      parameters: 
+        - in: path 
+          name: sales_id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema:  
+                $ref: '#/components/schemas/Products'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+  

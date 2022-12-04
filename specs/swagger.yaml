@@ -1,0 +1,104 @@
+openapi: 3.0.0
+info:
+  description: "API Cup Delivery"
+  version: "1.0.0"
+  title: "API Cup Delivery"
+servers:
+  - url: http://127.0.0.1:7766
+    description: Local server
+  - url: http://164.92.120.210:7766
+    description: Remote server
+tags:
+- name: "Auth"
+  description: "Access to Auth"
+- name: "User"
+  description: "Access to User"
+- name: "Customer"
+  description: "Access to Customer"
+- name: "Erp User"
+  description: "Access to Erp Users"
+- name: "Products"
+  description: "Access to Products"
+- name: "Sales"
+  description: "Access to Sales"
+
+paths:
+  # Auth
+  /auth/login:
+    $ref: 'src/auth.yaml#/components/Login'
+  /auth/check_token:
+    $ref: 'src/auth.yaml#/components/CheckToken'
+  /auth/refresh_token:
+    $ref: 'src/auth.yaml#/components/RefreshToken'
+  /auth/update_password:
+    $ref: 'src/auth.yaml#components/UpdatePassword'
+
+  #User
+  /user/{id}:
+    $ref: 'src/user.yaml#/components/GetOneOrDeleteUserById'
+  /user:
+    $ref: 'src/user.yaml#/components/GetAllUserCreateUpdateUser'
+
+  #Customer
+  /customer/{id}:
+    $ref: 'src/customer.yaml#/components/GetOneOrDeleteCustomerById'
+  /customer:
+    $ref: 'src/customer.yaml#/components/GetAllCustomerCreateUpdateCustomer'
+  /customer/password:
+    $ref: 'src/customer.yaml#/components/UpdateCustomerPassword'
+  /customer/{filter}:
+    $ref: 'src/customer.yaml#/components/GetAllCustomerByNameOrEmail'
+  /customer/login:
+    $ref: 'src/customer.yaml#/components/CustomerLogin'
+
+  #ErpUsers
+  /erpuser/{id}:
+    $ref: 'src/erp_users.yaml#/components/GetOneOrDeleteErpUsersById'
+  /erpuser:
+    $ref: 'src/erp_users.yaml#/components/GetAllErpUsersCreateUpdateErpUsers'
+  /erpuser/password:
+    $ref: 'src/erp_users.yaml#/components/UpdateErpUsersPassword'
+  /erpuser/{filter}:
+    $ref: 'src/erp_users.yaml#/components/GetAllErpUsersByNameOrEmail'
+  /erpuser/login:
+    $ref: 'src/erp_users.yaml#/components/ErpUsersLogin'
+
+  #Products
+  /products/{id}:
+    $ref: 'src/products.yaml#/components/GetOneOrDeleteProductsById'
+  /products:
+    $ref: 'src/products.yaml#/components/GetAllProductsCreateUpdateProducts'
+  /products/{filter}:
+    $ref: 'src/products.yaml#/components/GetAllProductsByDescription'
+
+  #Sales
+  /sales:
+    $ref: 'src/sales.yaml#/components/GetAllOrCreateSales'
+  /sales/{customer_id}:
+    $ref: 'src/sales.yaml#/components/GetSalesByCustomerId'
+  /sales/products/{sales_id}:
+    $ref: 'src/sales.yaml#/components/GetSalesProductsBySalesId'
+  /sales/{id}:
+    $ref: 'src/sales.yaml#/components/DeleteSalesById'  
+
+components:
+  securitySchemes:
+    basicAuth:   
+      type: http
+      scheme: basic
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: "Auth header (Authorization) Access Token"
+    bearerRefreshAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: "RefreshToken"
+  schemas:
+    BackendException:
+      type: object 
+      properties:
+        error: 
+          type: string

@@ -1,0 +1,280 @@
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        telephone:
+          type: string
+        cpf:
+          type: string
+        zip_code:
+          type: string
+        public_place:
+          type: string
+        number:
+          type: string
+        complement:
+          type: string
+        city:
+          type: string
+        district:
+          type: string
+    CustomerCreate:
+      type: object
+      properties:
+        name:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+        telephone:
+          type: string
+        cpf:
+          type: string
+        zip_code:
+          type: string
+        public_place:
+          type: string
+        number:
+          type: string
+        complement:
+          type: string
+        city:
+          type: string
+        district:
+          type: string
+    CustomerPasswordUpdate:
+        type: object
+        properties:
+          id:
+            type: integer
+          password:
+            type: string
+          newPassword:
+            type: string
+    CustomerLogin:
+        type: object
+        properties:
+          email:
+            type: string
+          password:
+            type: string
+  GetAllCustomerCreateUpdateCustomer:
+    get:
+      tags:
+        - 'Customer'
+      summary: Get all customer
+      security: 
+        - bearerAuth: []
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: array 
+                items: 
+                  $ref: '#/components/schemas/Customer'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+    post:
+      tags:
+        - 'Customer'
+      summary: Create new customer
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerCreate'
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: array 
+                items: 
+                  $ref: '#/components/schemas/Customer'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+    put:
+      tags:
+        - 'Customer'
+      summary: Update customer
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerCreate'
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: array 
+                items: 
+                  $ref: '#/components/schemas/Customer'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+  GetAllCustomerByNameOrEmail:
+    get:
+      tags:
+        - 'Customer'
+      summary: Get all customer by name or email
+      security: 
+        - bearerAuth: []
+      parameters: 
+        - in: path 
+          name: filter
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: array 
+                items: 
+                  $ref: '#/components/schemas/Customer'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+  UpdateCustomerPassword:
+    put:
+      tags:
+        - 'Customer'
+      summary: Update customer password
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerPasswordUpdate'
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: object 
+                properties: 
+                  message: 
+                    type: string 
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+  CustomerLogin:
+    post:
+      tags:
+        - 'Customer'
+      summary: Customer login
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerLogin'
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: object 
+                properties: 
+                  message: 
+                    type: string 
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+  GetOneOrDeleteCustomerById:
+    get:
+      tags:
+        - 'Customer'
+      security: 
+        - bearerAuth: []
+      summary: Get customer by id
+      parameters: 
+        - in: path 
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema:  
+                $ref: '#/components/schemas/Customer'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+    delete:
+      tags:
+        - 'Customer'
+      summary: Delete customer by id
+      security: 
+        - bearerAuth: []
+      parameters: 
+        - in: path 
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: object 
+                properties: 
+                  message: 
+                    type: string 
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'

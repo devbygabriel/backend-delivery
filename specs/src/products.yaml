@@ -1,0 +1,186 @@
+components:
+  schemas:
+    Products:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        unit:
+          type: string
+        picture:
+          type: string
+    ProductsCreate:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        unit:
+          type: string
+        picture:
+          type: string
+  GetAllProductsCreateUpdateProducts:
+    get:
+      tags:
+        - 'Products'
+      summary: Get all products
+      security: 
+        - bearerAuth: []
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: array 
+                items: 
+                  $ref: '#/components/schemas/Products'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+    post:
+      tags:
+        - 'Products'
+      summary: Create new products
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductsCreate'
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: array 
+                items: 
+                  $ref: '#/components/schemas/Products'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+    put:
+      tags:
+        - 'Products'
+      summary: Update products
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductsCreate'
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: array 
+                items: 
+                  $ref: '#/components/schemas/Products'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+  GetAllProductsByDescription:
+    get:
+      tags:
+        - 'Products'
+      summary: Get all products by description
+      security: 
+        - bearerAuth: []
+      parameters: 
+        - in: path 
+          name: filter
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: array 
+                items: 
+                  $ref: '#/components/schemas/Products'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+  GetOneOrDeleteProductsById:
+    get:
+      tags:
+        - 'Products'
+      security: 
+        - bearerAuth: []
+      summary: Get products by id
+      parameters: 
+        - in: path 
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema:  
+                $ref: '#/components/schemas/Products'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+    delete:
+      tags:
+        - 'Products'
+      summary: Delete products by id
+      security: 
+        - bearerAuth: []
+      parameters: 
+        - in: path 
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: object 
+                properties: 
+                  message: 
+                    type: string 
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
