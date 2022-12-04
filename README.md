@@ -12,3 +12,5 @@ Projeto de um delivery de cupcakes desenvolvido para o trabalho final do curso d
 
 DATABASE_URL=postgres://postgres:postgrespw@localhost:5432/deliverybackend
 JWT_KEY=dihfiUHFoiudhfosfF1e5sf1s1f5f1EF15
+
+- O arquivo deliverybackend.sql foi criado utilizando o Navicat, ele contem toda a estrutura do banco de dados
